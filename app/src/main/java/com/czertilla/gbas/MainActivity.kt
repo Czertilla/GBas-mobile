@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowCompat
 import com.czertilla.gbas.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +36,8 @@ class MainActivity : AppCompatActivity() {
                 .setAnchorView(R.id.fab).show()
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
+        val sideNavView: NavigationView = binding.sideNavView
+        val bottomNavView: BottomNavigationView = binding.bottomNavView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -45,7 +47,9 @@ class MainActivity : AppCompatActivity() {
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        sideNavView.setupWithNavController(navController)
+//        TODO unbind bottom nav from side nav
+        bottomNavView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
