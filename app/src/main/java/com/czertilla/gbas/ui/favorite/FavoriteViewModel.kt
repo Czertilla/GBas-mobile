@@ -1,13 +1,13 @@
-package com.czertilla.gbas.ui.slideshow
+package com.czertilla.gbas.ui.favorite
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SlideshowViewModel : ViewModel() {
+class FavoriteViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is slideshow Fragment"
+        value = "This is favorite Fragment"
     }
     val text: LiveData<String> = _text
 }
