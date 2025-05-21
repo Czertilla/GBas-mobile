@@ -55,7 +55,7 @@
             android:id="@+id/bottom_nav_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/activity_main_drawer"/>
+            app:menu="@menu/bottom_nav"/>
     </LinearLayout>
 
     <!-- Боковое меню -->
