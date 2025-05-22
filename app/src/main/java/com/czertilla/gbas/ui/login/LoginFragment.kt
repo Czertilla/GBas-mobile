@@ -45,14 +45,14 @@ class LoginFragment : Fragment() {
     private fun setupObservers() {
         loginViewModel.loginFormState.observe(viewLifecycleOwner) { loginFormState ->
             loginFormState ?: return@observe
-            binding.login.isEnabled = loginFormState.isDataValid
+            binding.btnLogin.isEnabled = loginFormState.isDataValid
             loginFormState.usernameError?.let { binding.username.error = getString(it) }
             loginFormState.passwordError?.let { binding.password.error = getString(it) }
         }
 
         loginViewModel.loginResult.observe(viewLifecycleOwner) { loginResult ->
             loginResult ?: return@observe
-            binding.loading.visibility = View.GONE
+            binding.pbLoading.visibility = View.GONE
             loginResult.error?.let { showLoginFailed(it.toString()) }
             loginResult.success?.let { updateUiWithUser(it) }
         }
@@ -73,8 +73,8 @@ class LoginFragment : Fragment() {
             )
         }
 
-        binding.login.setOnClickListener {
-            binding.loading.visibility = View.VISIBLE
+        binding.btnLogin.setOnClickListener {
+            binding.pbLoading.visibility = View.VISIBLE
             loginViewModel.login(
                 binding.username.text.toString(),
                 binding.password.text.toString()

@@ -4,7 +4,7 @@ import com.czertilla.gbas.data.model.LoggedInUser
 import java.io.IOException
 
 /**
- * Class that handles authentication w/ login credentials and retrieves user information.
+ * Class that handles authentication w/ btn_login credentials and retrieves user information.
  */
 class AuthDataSource {
 

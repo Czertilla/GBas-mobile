@@ -1,7 +1,7 @@
 package com.czertilla.gbas.ui.login.model
 
 /**
- * Data validation state of the login form.
+ * Data validation state of the btn_login form.
  */
 data class LoginFormState(
     val usernameError: Int? = null,
