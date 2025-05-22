@@ -5,5 +5,7 @@ package com.czertilla.gbas.data.model
  */
 data class LoggedInUser(
     val userId: String,
-    val displayName: String
+    val displayName: String,
+    val email: String? = null,
+    val photoUrl: String? = null
 )
