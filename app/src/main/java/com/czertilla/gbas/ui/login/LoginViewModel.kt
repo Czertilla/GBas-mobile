@@ -38,6 +38,13 @@ class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
+    fun loginWithGoogle() {
+        viewModelScope.launch {
+            val result = repository.signInWithGoogle()
+            _loginResult.value = result
+        }
+    }
+
     private fun isUserNameValid(username: String): Boolean {
         return username.isNotBlank()
                 && (username.contains('@') || username.matches(Regex("^\\+?[0-9]{10,15}$")))

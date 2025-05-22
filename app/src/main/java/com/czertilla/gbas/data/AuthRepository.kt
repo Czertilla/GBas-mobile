@@ -1,7 +1,7 @@
 package com.czertilla.gbas.data
 
-import android.content.Context
 import com.czertilla.gbas.data.model.LoggedInUser
+import com.czertilla.gbas.ui.login.model.LoginResult
 import kotlinx.coroutines.delay
 
 
