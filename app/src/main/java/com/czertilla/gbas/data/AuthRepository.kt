@@ -5,7 +5,7 @@ import com.czertilla.gbas.data.model.LoggedInUser
 import kotlinx.coroutines.delay
 
 
-class AuthRepository(private val context: Context) {
+class AuthRepository(private val dataSource: AuthDataSource) {
 
     private var user: LoggedInUser? = null
 
