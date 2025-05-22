@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.czertilla.gbas.R
 import com.czertilla.gbas.data.AuthRepository
+import com.czertilla.gbas.ui.login.model.LoginFormState
+import com.czertilla.gbas.ui.login.model.LoginResult
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
