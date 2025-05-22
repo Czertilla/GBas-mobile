@@ -53,4 +53,15 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Firebase BoM
+    implementation (platform(libs.firebase.bom))
+    implementation (libs.google.firebase.auth) // подтянется версия 23.2.1
+
+    // Google OAuth + Credential API
+    implementation (libs.androidx.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.googleid)
+
+    // Kotlin coroutines for Tasks
+    implementation( libs.kotlinx.coroutines.play.services)
 }
