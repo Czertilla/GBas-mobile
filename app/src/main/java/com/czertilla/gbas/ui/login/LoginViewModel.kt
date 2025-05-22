@@ -33,7 +33,7 @@ class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
                 val result = repository.login(username, password)
                 _loginResult.value = LoginResult(success = result)
             } catch (e: Exception) {
-                _loginResult.value = LoginResult(error = R.string.login_failed)
+                _loginResult.value = LoginResult(error = R.string.login_failed.toString())
             }
         }
     }
