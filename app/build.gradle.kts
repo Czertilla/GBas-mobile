@@ -62,6 +62,12 @@ dependencies {
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
 
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    testImplementation(libs.androidx.room.testing)
+    implementation(libs.androidx.room.paging)
+
     // Kotlin coroutines for Tasks
     implementation( libs.kotlinx.coroutines.play.services)
 }
