@@ -12,6 +12,11 @@ class AuthRepository(private val dataSource: AuthDataSource) {
     val isLoggedIn: Boolean
         get() = user != null
 
+    suspend fun signInWithGoogle(): LoginResult {
+        val credential = dataSource.getGoogleCredential()
+            ?: return LoginResult(success = null, error = "Не удалось получить credential")
+        return dataSource.firebaseAuthWithGoogle(credential)
+    }
 
     suspend fun login(username: String, password: String): LoggedInUser {
             // Здесь может быть вызов API или работа с Room/SQLite
@@ -24,3 +29,4 @@ class AuthRepository(private val dataSource: AuthDataSource) {
             }
         }
     }
+

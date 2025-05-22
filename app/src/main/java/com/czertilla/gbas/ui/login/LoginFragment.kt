@@ -13,7 +13,6 @@ import androidx.core.widget.doOnTextChanged
 import com.czertilla.gbas.databinding.FragmentLoginBinding
 
 import com.czertilla.gbas.R
-import com.czertilla.gbas.data.AuthRepository
 import com.czertilla.gbas.data.model.LoggedInUser
 
 class LoginFragment : Fragment() {
@@ -35,7 +34,7 @@ class LoginFragment : Fragment() {
 
         loginViewModel = ViewModelProvider(
             this,
-            LoginViewModelFactory(AuthRepository(requireContext()))
+            LoginViewModelFactory(requireContext())
         )[LoginViewModel::class.java]
 
         setupObservers()
@@ -55,6 +54,12 @@ class LoginFragment : Fragment() {
             binding.pbLoading.visibility = View.GONE
             loginResult.error?.let { showLoginFailed(it.toString()) }
             loginResult.success?.let { updateUiWithUser(it) }
+        }
+        loginViewModel.loginResult.observe(viewLifecycleOwner) { oauthResult ->
+            oauthResult ?: return@observe
+            binding.pbLoading.visibility = View.GONE
+            oauthResult.error?.let { showLoginFailed(it.toString()) }
+            oauthResult.success?.let { updateUiWithUser(it) }
         }
     }
 
@@ -79,6 +84,10 @@ class LoginFragment : Fragment() {
                 binding.username.text.toString(),
                 binding.password.text.toString()
             )
+        }
+
+        binding.btnGoogleSignIn.setOnClickListener {
+            loginViewModel.loginWithGoogle()
         }
     }
 
