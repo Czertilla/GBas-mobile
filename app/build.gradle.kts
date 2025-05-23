@@ -55,7 +55,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     // Firebase BoM
     implementation (platform(libs.firebase.bom))
-    implementation (libs.google.firebase.auth) // подтянется версия 23.2.1
+    implementation (libs.google.firebase.auth)
 
     // Google OAuth + Credential API
     implementation (libs.androidx.credentials)
@@ -67,6 +67,11 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.room.paging)
+
+    // Retrofit
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
 
     // Kotlin coroutines for Tasks
     implementation( libs.kotlinx.coroutines.play.services)
