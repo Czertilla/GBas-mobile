@@ -4,7 +4,11 @@ import android.content.Context
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import com.czertilla.gbas.R
+import com.czertilla.gbas.data.local.secure.SecureStorage
 import com.czertilla.gbas.data.model.LoggedInUser
+import com.czertilla.gbas.data.remote.api.FirebaseApi
+import com.czertilla.gbas.data.remote.client.RetrofitClient
+import com.czertilla.gbas.data.remote.schema.FirebaseLoginRequest
 import com.czertilla.gbas.ui.login.model.LoginResult
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
@@ -19,6 +23,10 @@ import java.io.IOException
 class AuthDataSource(private val context: Context) {
     private val auth = FirebaseAuth.getInstance()
     private val credentialManager = CredentialManager.create(context)
+    private val firebaseApi = RetrofitClient.create(
+        baseUrl = prefixRoute(R.string.route_auth_firebase),
+        serviceClass = FirebaseApi::class.java
+    )
 
     suspend fun getGoogleCredential(): GoogleIdTokenCredential? {
         val request = GetCredentialRequest.Builder()
@@ -49,12 +57,21 @@ class AuthDataSource(private val context: Context) {
             val user = result.user
 
             if (user != null) {
+
+                val syncResult = firebaseApi.loginWithFirebase(
+                    token = FirebaseLoginRequest(
+                        user.getIdToken(true).await().token.toString(),
+                    )
+                )
                 val loggedInUser = LoggedInUser(
-                    userId = user.uid,
+                    userId = syncResult?.userId ?: user.uid,
                     displayName = user.displayName ?: "Unknown",
                     email = user.email,
                     photoUrl = user.photoUrl?.toString()
                 )
+                if (syncResult != null){
+                    SecureStorage.saveAccessToken(context, syncResult.accessToken)
+                }
                 LoginResult(success = loggedInUser)
             } else {
                 LoginResult(error = "Пользователь не найден")
@@ -73,6 +90,9 @@ class AuthDataSource(private val context: Context) {
             return Result.Error(IOException("Error logging in", e))
         }
     }
+
+    private fun prefixRoute(stringId: Int) : String =
+        context.getString(R.string.api_base_url).toString() + context.getString(stringId).toString()
 
     fun logout() {
         // TODO: revoke authentication
