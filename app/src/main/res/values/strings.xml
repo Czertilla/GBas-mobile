@@ -24,5 +24,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_auth" translatable="false">AuthActivity</string>
-    <string name="default_web_client_id">65177952882-ij0uju0psvd162nkhdv9bak74ssrbfsc.apps.googleusercontent.com</string>
+    <string name="default_web_client_id" translatable="false">65177952882-ij0uju0psvd162nkhdv9bak74ssrbfsc.apps.googleusercontent.com</string>
+    <string name="route_auth_firebase" translatable="false">auth/firebase/</string>
+    <string name="api_base_url" translatable="false">http://192.168.0.101:8000/</string>
 </resources>
