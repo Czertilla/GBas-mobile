@@ -70,4 +70,6 @@ dependencies {
 
     // Kotlin coroutines for Tasks
     implementation( libs.kotlinx.coroutines.play.services)
+
+    implementation (libs.androidx.security.crypto)
 }
