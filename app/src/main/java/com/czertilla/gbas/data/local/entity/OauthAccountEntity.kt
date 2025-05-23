@@ -5,6 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.czertilla.gbas.data.enum.OauthProvider
+import java.util.UUID
 
 
 @Entity(
@@ -20,5 +21,5 @@ import com.czertilla.gbas.data.enum.OauthProvider
 data class OauthAccountEntity(
     @PrimaryKey val provider: OauthProvider,
     @PrimaryKey val id: String,
-    val userId: String,
+    val userId: UUID,
 )
