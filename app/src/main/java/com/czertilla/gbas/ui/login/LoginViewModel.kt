@@ -5,12 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.czertilla.gbas.R
-import com.czertilla.gbas.data.AuthRepository
+import com.czertilla.gbas.data.auth.jwt.AuthRepositoryImpl
+import com.czertilla.gbas.data.auth.jwt.AuthService
 import com.czertilla.gbas.ui.login.model.LoginFormState
 import com.czertilla.gbas.ui.login.model.LoginResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val authService: AuthService
+) : ViewModel() {
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
@@ -18,19 +24,17 @@ class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
     val loginResult: LiveData<LoginResult> = _loginResult
 
     fun loginDataChanged(username: String, password: String) {
-        if (!isUserNameValid(username)) {
-            _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
-        } else if (!isPasswordValid(password)) {
-            _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
-        } else {
-            _loginForm.value = LoginFormState(isDataValid = true)
+        _loginForm.value = when {
+            !isUserNameValid(username) -> LoginFormState(usernameError = R.string.invalid_username)
+            !isPasswordValid(password) -> LoginFormState(passwordError = R.string.invalid_password)
+            else -> LoginFormState(isDataValid = true)
         }
     }
 
     fun login(username: String, password: String) {
         viewModelScope.launch {
             try {
-                val result = repository.login(username, password)
+                val result = authService.login(username, password)
                 _loginResult.value = LoginResult(success = result)
             } catch (e: Exception) {
                 _loginResult.value = LoginResult(error = R.string.login_failed.toString())
@@ -40,17 +44,12 @@ class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
 
     fun loginWithGoogle() {
         viewModelScope.launch {
-            val result = repository.signInWithGoogle()
-            _loginResult.value = result
+            _loginResult.value = authService.loginWithGoogle()
         }
     }
 
-    private fun isUserNameValid(username: String): Boolean {
-        return username.isNotBlank()
-                && (username.contains('@') || username.matches(Regex("^\\+?[0-9]{10,15}$")))
-    }
+    private fun isUserNameValid(username: String) = username.isNotBlank() &&
+            (username.contains('@') || username.matches(Regex("^\\+?[0-9]{10,15}$")))
 
-    private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
-    }
+    private fun isPasswordValid(password: String) = password.length > 5
 }

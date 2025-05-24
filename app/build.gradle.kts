@@ -2,6 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+    alias(libs.plugins.hilt)
+    id("com.google.devtools.ksp")
+}
+hilt {
+    enableAggregatingTask = false
 }
 
 android {
@@ -17,7 +22,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -28,11 +32,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
@@ -40,6 +44,17 @@ android {
 }
 
 dependencies {
+    implementation (libs.hilt.android)
+    ksp (libs.hilt.compiler)
+
+    // For instrumentation tests
+    androidTestImplementation  (libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.compiler)
+
+    // For local unit tests
+    testImplementation (libs.hilt.android.testing)
+    kspTest (libs.hilt.compiler)
+    testImplementation (libs.kotlin.test)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation (libs.androidx.activity.ktx)
@@ -64,9 +79,9 @@ dependencies {
 
     // Room
     implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.androidx.room.testing)
-    implementation(libs.androidx.room.paging)
 
     // Retrofit
     implementation (libs.retrofit)

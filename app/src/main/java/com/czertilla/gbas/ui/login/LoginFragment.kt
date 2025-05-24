@@ -1,7 +1,6 @@
 package com.czertilla.gbas.ui.login
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProvider
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import android.os.Bundle
@@ -10,13 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.viewModels
 import com.czertilla.gbas.databinding.FragmentLoginBinding
 
 import com.czertilla.gbas.R
 import com.czertilla.gbas.data.model.LoggedInUser
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
@@ -32,10 +34,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loginViewModel = ViewModelProvider(
-            this,
-            LoginViewModelFactory(requireContext())
-        )[LoginViewModel::class.java]
 
         setupObservers()
         setupListeners()

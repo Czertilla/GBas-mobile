@@ -12,6 +12,6 @@ interface OauthAccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(account: OauthAccountEntity)
 
-    @Query("SELECT * FROM oauth_account WHERE id = :id AND provider = :provider")
-    suspend fun getByProviderId(provider: OauthProvider, id: String): OauthAccountEntity?
+    @Query("SELECT * FROM oauth_account WHERE userId = :userId AND provider = :provider")
+    suspend fun getByProviderId( userId: String, provider: OauthProvider): OauthAccountEntity?
 }
