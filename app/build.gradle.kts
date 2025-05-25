@@ -55,10 +55,13 @@ dependencies {
     testImplementation (libs.hilt.android.testing)
     kspTest (libs.hilt.compiler)
     testImplementation (libs.kotlin.test)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation (libs.androidx.activity.ktx)
     implementation(libs.material)
+    implementation (libs.glide)
+    ksp (libs.ksp)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

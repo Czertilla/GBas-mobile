@@ -30,4 +30,25 @@ class RoomUserStorage(private val context: Context) : UserStorage {
             false
         }
     }
+
+    override suspend fun getUserEntity(userId: String): LoggedInUser? {
+        return try {
+            val userId = UUID.fromString(userId)
+            val userEntity = userDao.getById(userId)
+            if (userEntity != null){
+                return LoggedInUser(
+                    userId = userEntity.id.toString(),
+                    displayName = userEntity.username,
+                    email = userEntity.email,
+                    photoUrl = userEntity.photoUrl
+                )
+            } else {
+                null
+            }
+
+        } catch (e: IllegalArgumentException) {
+            Log.e("UserRepository", "Error getting user by id=$userId: $e")
+            null
+        }
+    }
 }

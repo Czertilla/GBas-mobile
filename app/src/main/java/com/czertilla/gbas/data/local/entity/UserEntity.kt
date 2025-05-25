@@ -7,7 +7,7 @@ import java.util.UUID
 @Entity(tableName = "user")
 data class UserEntity(
     @PrimaryKey val id: UUID,
-    val displayName: String,
+    val username: String,
     val email: String?,
     val photoUrl: String?
 )

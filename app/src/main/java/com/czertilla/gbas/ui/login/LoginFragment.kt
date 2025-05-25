@@ -1,6 +1,7 @@
 package com.czertilla.gbas.ui.login
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import android.os.Bundle
@@ -15,15 +16,21 @@ import androidx.lifecycle.viewModelScope
 import com.czertilla.gbas.databinding.FragmentLoginBinding
 
 import com.czertilla.gbas.R
+import com.czertilla.gbas.data.local.session.SessionManager
 import com.czertilla.gbas.data.model.LoggedInUser
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
+import com.czertilla.gbas.MainActivity
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     private val loginViewModel: LoginViewModel by viewModels()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,9 +103,19 @@ class LoginFragment : Fragment() {
 
     private fun updateUiWithUser(model: LoggedInUser) {
         val welcome = getString(R.string.welcome) + model.displayName
-        // TODO : initiate successful logged in experience
+        sessionManager.userId = model.userId
+
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
+
+        startMainActivity()
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun showLoginFailed(@SuppressLint("SupportAnnotationUsage") @StringRes errorString: String) {

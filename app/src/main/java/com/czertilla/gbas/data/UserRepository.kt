@@ -19,7 +19,7 @@ class UserRepository(private val context: Context) {
             userDao.insert(
                 UserEntity(
                     id = userId,
-                    displayName = user.displayName,
+                    username = user.displayName,
                     email = user.email,
                     photoUrl = user.photoUrl
                 )
