@@ -1,5 +1,6 @@
 package com.czertilla.gbas.data.auth.jwt
 
+import android.content.Context
 import com.czertilla.gbas.data.auth.firebase.FirebaseAuthService
 import com.czertilla.gbas.data.model.LoggedInUser
 import com.czertilla.gbas.ui.login.model.LoginResult
@@ -19,8 +20,8 @@ private val firebaseAuthService: FirebaseAuthService
         } else throw Exception("Invalid credentials")
     }
 
-    override suspend fun loginWithGoogle(): LoginResult {
-        val credential = firebaseAuthService.getGoogleCredential()
+    override suspend fun loginWithGoogle(context: Context): LoginResult {
+        val credential = firebaseAuthService.getGoogleCredential(context)
             ?: return LoginResult(error = "Не удалось получить credential")
 
         val result = firebaseAuthService.signInWithGoogleCredential(credential)

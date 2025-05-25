@@ -1,5 +1,6 @@
 package com.czertilla.gbas.ui.login
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,10 +43,8 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun loginWithGoogle() {
-        viewModelScope.launch {
-            _loginResult.value = authService.loginWithGoogle()
-        }
+    suspend fun loginWithGoogle(context: Context) {
+        _loginResult.value = authService.loginWithGoogle(context)
     }
 
     private fun isUserNameValid(username: String) = username.isNotBlank() &&

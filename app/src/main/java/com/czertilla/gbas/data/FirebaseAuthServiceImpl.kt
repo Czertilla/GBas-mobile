@@ -34,7 +34,7 @@ class FirebaseAuthServiceImpl(
     private val auth = FirebaseAuth.getInstance()
     private val credentialManager = CredentialManager.create(context)
 
-    override suspend fun getGoogleCredential(): GoogleIdTokenCredential? {
+    override suspend fun getGoogleCredential(context: Context): GoogleIdTokenCredential? {
         val request = GetCredentialRequest.Builder()
             .addCredentialOption(
                 GetGoogleIdOption.Builder()

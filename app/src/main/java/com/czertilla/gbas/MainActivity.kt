@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+        setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
 
             binding.statusBarBackground.layoutParams.height = statusBarHeight

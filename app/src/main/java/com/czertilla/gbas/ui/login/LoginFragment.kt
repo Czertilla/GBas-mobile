@@ -10,11 +10,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import com.czertilla.gbas.databinding.FragmentLoginBinding
 
 import com.czertilla.gbas.R
 import com.czertilla.gbas.data.model.LoggedInUser
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -85,7 +88,9 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnGoogleSignIn.setOnClickListener {
-            loginViewModel.loginWithGoogle()
+            lifecycleScope.launch {
+                this@LoginFragment.context?.let { it1 -> loginViewModel.loginWithGoogle(it1) }
+            }
         }
     }
 
