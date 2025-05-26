@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">GBas</string>
     <string name="action_settings">Настройки</string>
-    <string name="menu_home">Домой</string>
+    <string name="menu_home">Главная</string>
     <string name="menu_gallery">Галерея</string>
     <string name="menu_slideshow">Слайдшоу</string>
     <string name="menu_favorites">Избранное</string>

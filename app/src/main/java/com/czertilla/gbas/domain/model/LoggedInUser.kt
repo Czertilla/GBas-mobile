@@ -1,4 +1,4 @@
-package com.czertilla.gbas.data.model
+package com.czertilla.gbas.domain.model
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

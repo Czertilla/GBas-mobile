@@ -6,9 +6,13 @@ import com.czertilla.gbas.data.FirebaseAuthServiceImpl
 import com.czertilla.gbas.data.auth.firebase.FirebaseAuthService
 import com.czertilla.gbas.data.auth.jwt.AuthRepositoryImpl
 import com.czertilla.gbas.data.auth.jwt.AuthService
+import com.czertilla.gbas.data.local.dao.CookieDao
+import com.czertilla.gbas.data.local.dao.OauthAccountDao
+import com.czertilla.gbas.data.local.dao.UserDao
 import com.czertilla.gbas.data.local.secure.SecureStorage
 import com.czertilla.gbas.data.remote.api.FirebaseApi
 import com.czertilla.gbas.data.remote.client.ApiFactory
+import com.czertilla.gbas.data.remote.client.CookieJarImpl
 import com.czertilla.gbas.data.user.RoomUserStorage
 import com.czertilla.gbas.data.user.UserStorage
 import dagger.Module
@@ -16,6 +20,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.CookieJar
 import javax.inject.Singleton
 
 @Module
@@ -34,13 +39,19 @@ object AuthModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseApi(baseUrl: String): FirebaseApi {
-        return ApiFactory.create(baseUrl, FirebaseApi::class.java)
+    fun provideFirebaseApi(
+        baseUrl: String,
+        cookieJar: CookieJar
+    ): FirebaseApi {
+        return ApiFactory(cookieJar).create(baseUrl, FirebaseApi::class.java)
     }
 
     @Provides
-    fun provideUserStorage(@ApplicationContext context: Context): UserStorage {
-        return RoomUserStorage(context)
+    fun provideUserStorage(
+        userDao: UserDao,
+        oauthAccountDao: OauthAccountDao
+    ): UserStorage {
+        return RoomUserStorage(userDao, oauthAccountDao)
     }
 
     @Provides

@@ -8,7 +8,7 @@ import com.czertilla.gbas.R
 import com.czertilla.gbas.data.auth.firebase.FirebaseAuthService
 import com.czertilla.gbas.data.enum.OauthProvider
 import com.czertilla.gbas.data.local.secure.SecureStorage
-import com.czertilla.gbas.data.model.LoggedInUser
+import com.czertilla.gbas.domain.model.LoggedInUser
 import com.czertilla.gbas.data.remote.api.FirebaseApi
 import com.czertilla.gbas.data.remote.schema.FirebaseLoginRequest
 import com.czertilla.gbas.data.user.UserStorage

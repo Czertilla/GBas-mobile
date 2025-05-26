@@ -2,6 +2,7 @@ package com.czertilla.gbas
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,7 +21,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.czertilla.gbas.data.local.session.SessionManager
-import com.czertilla.gbas.data.model.LoggedInUser
+import com.czertilla.gbas.domain.model.LoggedInUser
 import com.czertilla.gbas.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -90,8 +91,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         if (!sessionManager.isLoggedIn()) {
-            startActivity(Intent(this, AuthActivity::class.java))
-            finish()
+            redirectToAuth()
             return
         }
 
@@ -99,7 +99,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun updateNavigationHeader(user: LoggedInUser) {
+    private fun redirectToAuth() {
+        startActivity(Intent(this, AuthActivity::class.java))
+        finish()
+    }
+
+    private fun updateNavigationHeader(user: LoggedInUser?) {
+        if (user == null) {
+            Log.w("MainActivity", "User is null — redirecting to auth")
+            sessionManager.logout()
+            redirectToAuth()
+            return
+        }
         val headerView = binding.sideNavView.getHeaderView(0)
 
         val nameTextView = headerView.findViewById<TextView>(R.id.text_name_nav_header)

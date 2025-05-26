@@ -1,4 +1,4 @@
-package com.czertilla.gbas.data.model
+package com.czertilla.gbas.domain.model
 
 data class LoginRequest(
     val username: String,

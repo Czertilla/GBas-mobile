@@ -2,7 +2,7 @@ package com.czertilla.gbas.data.auth.jwt
 
 import android.content.Context
 import com.czertilla.gbas.data.auth.firebase.FirebaseAuthService
-import com.czertilla.gbas.data.model.LoggedInUser
+import com.czertilla.gbas.domain.model.LoggedInUser
 import com.czertilla.gbas.ui.login.model.LoginResult
 import kotlinx.coroutines.delay
 

@@ -12,12 +12,11 @@ import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import com.czertilla.gbas.databinding.FragmentLoginBinding
 
 import com.czertilla.gbas.R
 import com.czertilla.gbas.data.local.session.SessionManager
-import com.czertilla.gbas.data.model.LoggedInUser
+import com.czertilla.gbas.domain.model.LoggedInUser
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch

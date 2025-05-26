@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.czertilla.gbas.data.local.entity.UserEntity
 import com.czertilla.gbas.data.local.session.SessionManager
-import com.czertilla.gbas.data.model.LoggedInUser
+import com.czertilla.gbas.domain.model.LoggedInUser
 import com.czertilla.gbas.data.user.UserStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,7 +24,9 @@ class MainViewModel @Inject constructor(
         val userId = sessionManager.userId ?: return
         viewModelScope.launch {
             val user = userStorage.getUserEntity(userId)
-            user.let { _user.postValue(it) }
+            user.let {
+                _user.postValue(it)
+            }
         }
     }
 }

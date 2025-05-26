@@ -1,6 +1,6 @@
 package com.czertilla.gbas.ui.login.model
 
-import com.czertilla.gbas.data.model.LoggedInUser
+import com.czertilla.gbas.domain.model.LoggedInUser
 
 /**
  * Authentication result : success (user details) or error message.

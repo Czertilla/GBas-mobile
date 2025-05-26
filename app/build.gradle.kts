@@ -45,6 +45,7 @@ android {
 
 dependencies {
     implementation (libs.hilt.android)
+    implementation(libs.androidx.swiperefreshlayout)
     ksp (libs.hilt.compiler)
 
     // For instrumentation tests

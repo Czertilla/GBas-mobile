@@ -5,19 +5,25 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.czertilla.gbas.data.local.dao.CookieDao
 import com.czertilla.gbas.data.local.dao.OauthAccountDao
+import com.czertilla.gbas.data.local.dao.ServiceDao
 import com.czertilla.gbas.data.local.dao.UserDao
+import com.czertilla.gbas.data.local.entity.CookieEntity
 import com.czertilla.gbas.data.local.entity.OauthAccountEntity
+import com.czertilla.gbas.data.local.entity.ServiceEntity
 import com.czertilla.gbas.data.local.entity.UserEntity
 
 @Database(
-    entities = [UserEntity::class, OauthAccountEntity::class],
+    entities = [UserEntity::class, OauthAccountEntity::class, ServiceEntity::class, CookieEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun oauthAccountDao(): OauthAccountDao
+    abstract fun serviceDao(): ServiceDao
+    abstract fun cookieDao(): CookieDao
 
     companion object {
         @Volatile

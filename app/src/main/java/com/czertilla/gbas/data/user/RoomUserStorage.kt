@@ -3,15 +3,20 @@ package com.czertilla.gbas.data.user
 import android.content.Context
 import android.util.Log
 import com.czertilla.gbas.data.enum.OauthProvider
+import com.czertilla.gbas.data.local.dao.OauthAccountDao
+import com.czertilla.gbas.data.local.dao.UserDao
 import com.czertilla.gbas.data.local.db.AppDatabase
 import com.czertilla.gbas.data.local.entity.OauthAccountEntity
 import com.czertilla.gbas.data.local.entity.UserEntity
-import com.czertilla.gbas.data.model.LoggedInUser
+import com.czertilla.gbas.domain.model.LoggedInUser
 import java.util.UUID
+import javax.inject.Inject
 
-class RoomUserStorage(private val context: Context) : UserStorage {
-    private val userDao = AppDatabase.getInstance(context).userDao()
-    private val oauthDao = AppDatabase.getInstance(context).oauthAccountDao()
+class RoomUserStorage @Inject constructor(
+    private val userDao: UserDao,
+    private val oauthDao: OauthAccountDao
+) : UserStorage {
+
 
     override suspend fun saveUserEntity(user: LoggedInUser, providerName: String?): Boolean {
         return try {
