@@ -14,11 +14,11 @@
 
     <ImageView
         android:id="@+id/img_photo_side_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_placeholder_avatar"
+        android:background="@drawable/circle_background"/>
 
     <TextView
         android:id="@+id/text_name_nav_header"

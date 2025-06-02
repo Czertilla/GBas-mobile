@@ -1,7 +1,6 @@
 package com.czertilla.gbas.data.local.entity
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.czertilla.gbas.domain.model.ServiceCard

@@ -15,24 +15,45 @@
         android:id="@+id/nav_search"
         android:name="com.czertilla.gbas.ui.search.SearchFragment"
         android:label="@string/menu_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_nav_search_to_serviceDetailFragment"
+            app:destination="@id/serviceDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_cart"
         android:name="com.czertilla.gbas.ui.cart.CartFragment"
         android:label="@string/menu_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_nav_cart_to_serviceDetailFragment"
+            app:destination="@id/serviceDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_favorites"
         android:name="com.czertilla.gbas.ui.favorite.FavoriteFragment"
         android:label="@string/menu_favorites"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_nav_favorites_to_serviceDetailFragment"
+            app:destination="@id/serviceDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.czertilla.gbas.ui.login.LoginFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/serviceDetailFragment"
+        android:name="com.czertilla.gbas.ui.service.ServiceDetailFragment"
+        android:label="Услуга">
+        <argument
+            android:name="serviceId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

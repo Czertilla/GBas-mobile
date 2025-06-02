@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -24,7 +25,7 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by viewModels()
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private val adapter = ServiceAdapter()
+    private lateinit var adapter: ServiceAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +38,13 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.service_grid)
+        val adapter = ServiceAdapter { service ->
+            val action = SearchFragmentDirections.actionNavSearchToServiceDetailFragment(
+                service.id.toString()
+            )
+            findNavController().navigate(action)
+        }
+        recyclerView.adapter = adapter
 
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView.setHasFixedSize(false)

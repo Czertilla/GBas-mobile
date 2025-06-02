@@ -24,6 +24,7 @@ class SearchViewModel @Inject constructor(
     init {
         _isRefreshing.value = false
         loadCachedServices()
+        refreshServices()
     }
 
     fun loadCachedServices() {

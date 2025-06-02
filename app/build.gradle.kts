@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     alias(libs.plugins.hilt)
     id("com.google.devtools.ksp")
+    id ("androidx.navigation.safeargs.kotlin")
 }
 hilt {
     enableAggregatingTask = false

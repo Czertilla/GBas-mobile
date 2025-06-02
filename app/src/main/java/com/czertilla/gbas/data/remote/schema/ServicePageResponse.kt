@@ -13,9 +13,9 @@ data class ServicePageResponse (
     @Expose
     val name: String,
 
-    @SerializedName("author_id")
+    @SerializedName("author")
     @Expose
-    val authorId: UserRead,
+    val author: UserRead,
 
     @SerializedName("photo_url")
     @Expose

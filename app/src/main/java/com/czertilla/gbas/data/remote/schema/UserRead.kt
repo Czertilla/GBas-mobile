@@ -5,23 +5,35 @@ import com.google.gson.annotations.SerializedName
 import java.util.UUID
 
 data class UserRead (
-    private var id: UUID? = null,
+    @SerializedName("id")
+    @Expose
+    val id: UUID,
 
-    private var email: String? = null,
+    @SerializedName("email")
+    @Expose
+    val email: String,
 
-    private var password: String? = null,
+    @SerializedName("password")
+    @Expose
+    val password: String,
 
     @SerializedName("is_active")
     @Expose
-    private var isActive: Boolean? = null,
+    val isActive: Boolean,
 
     @SerializedName("is_superuser")
     @Expose
-    private var isSuperuser: Boolean? = null,
+    val isSuperuser: Boolean,
 
     @SerializedName("is_verified")
     @Expose
-    private var isVerified: Boolean? = null,
+    val isVerified: Boolean,
 
-    private var username: String? = null
+    @SerializedName("username")
+    @Expose
+    val username: String,
+
+    @SerializedName("photo_url")
+    @Expose
+    val photoUrl: String?
 )
